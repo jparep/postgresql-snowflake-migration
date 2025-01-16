@@ -15,7 +15,7 @@ def get_connection():
         print(f"Error connecting to the database: {e}")
         raise
 
-def excute_query(query, data=None):
+def execute_query(query, data=None):
     """Excecute a query with optionsal parameters."""
     connection = get_connection()
     cursor = connection.cursor()
@@ -28,3 +28,4 @@ def excute_query(query, data=None):
     finally:
         cursor.close()
         connection.close()
+        

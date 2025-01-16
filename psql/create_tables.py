@@ -1,6 +1,6 @@
 """Create tables in the PostgreSQL database."""
 
-from database import excute_query
+from database import execute_query
 
 CREATE_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS empoyee (
@@ -10,3 +10,7 @@ CREATE TABLE IF NOT EXISTS empoyee (
     age INT
 );
 """
+def create_table():
+    """Run the table creation query."""
+    print("Creating table...")
+    execute_query(CREATE_TABLE_QUERY)
