@@ -1,0 +1,27 @@
+# Ignore PostgreSQL database files
+*.sql
+*.dump
+*.backup
+
+# Ignore Snowflake connection files
+*.snowsql
+*.snowflake
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore node_modules
+node_modules/
+
+# Ignore logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
