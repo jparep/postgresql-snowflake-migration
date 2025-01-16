@@ -5,9 +5,10 @@ from database import execute_query
 CREATE_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS empoyee (
     employee_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(30),
-    last_name VARCHAR(30),
-    age INT
+    first_name VARCHAR(25),
+    last_name VARCHAR(25),
+    age INT,
+    department VARCHAR (15)
 );
 """
 def create_table():
