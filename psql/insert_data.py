@@ -2,11 +2,11 @@
 Inserts the first 20 rows into the database.
 """
 
-from database import execute_query
+from psql.connect_db_and_execute_query import execute_query
 
 # SQL query for inserting data
 INSERT_DATA_QUERY = """
-INSERT INTO employees (first_name, last_name, age, department)
+INSERT INTO employee (first_name, last_name, age, department)
 VALUES (%s, %s, %s, %s);
 """
 
@@ -17,11 +17,17 @@ INITIAL_DATA = [
 ]
 
 def insert_initial_data():
-    """Insert initial data into employees table."""
-    print("Inserting initial data...")
-    for data in INITIAL_DATA:
-        execute_query(INSERT_DATA_QUERY, data)  # Pass the query and data tuple
-    print("Initial data inserted successfully.")
+    """
+    Inserts the first 20 rows into the 'employee' table.
+    """
+    print("Inserting initial data into 'employee' table...")
+    try:
+        for data in INITIAL_DATA:
+            execute_query(INSERT_DATA_QUERY, data)  # Pass the query and data tuple
+        print("Initial data inserted successfully.")
+    except Exception as e:
+        print(f"Error inserting initial data: {e}")
+        raise  # Re-raise the exception for debugging
 
 if __name__ == "__main__":
     insert_initial_data()

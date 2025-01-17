@@ -21,7 +21,11 @@ def create_table():
     """
     print("Creating table 'employee'...")
     try:
-        execute_query(CREATE_TABLE_QUERY)
+        execute_query(CREATE_TABLE_QUERY)  # Execute the table creation query
         print("Table 'employee' created successfully.")
     except Exception as e:
         print(f"Error creating table: {e}")
+        raise  # Re-raise the exception for better debugging
+
+if __name__ == "__main__":
+    create_table()
