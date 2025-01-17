@@ -7,5 +7,5 @@ def main():
     inisert_inital_data()
     print("Database setup completed.")
     
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()

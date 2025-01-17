@@ -11,7 +11,7 @@ def get_connection():
     try:
         connection = psycopg2.connect(**DB_CONFIG)
         return connection
-    except psycopg2.error as e:
+    except psycopg2.Error as e:
         print(f"Error connecting to the database: {e}")
         raise
 
