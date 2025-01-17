@@ -1,7 +1,7 @@
 """
 Create tables in the PostgreSQL database.
 """
-from .connect_db_and_execute_query import execute_query
+from psql.connect_db_and_execute_query import execute_query
 
 
 # SQL query to create the 'employee' table
