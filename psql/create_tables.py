@@ -28,4 +28,5 @@ def create_table():
         raise  # Re-raise the exception for better debugging
 
 if __name__ == "__main__":
+    # Call crate table method
     create_table()
