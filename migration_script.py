@@ -16,3 +16,11 @@ conn_pg = psycopg2.connect(
     database=os.getenv("POSTGRES_DATABASE")
 )
 
+# Snowflake Connection using environment variables
+conn_sf = snowflake.connector.connect(
+    user=os.getenv("SNOWFLAKE_USER"),
+    password=os.getenv("SNOWFLAKE_PASSWORD"),
+    account=os.getenv("SNOWFLAKE_ACCOUNT"),
+    database=os.getenv("SNOWFLAKE_DATABASE"),
+    schema=os.getenv("SNOWFLAKE_SCHEMA")
+)
