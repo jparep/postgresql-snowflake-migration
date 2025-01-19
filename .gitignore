@@ -28,3 +28,8 @@ Thumbs.db
 
 # Ignore Environement file
 environment.yml
+
+# Ignore data
+data/
+.csv
+*.csv
