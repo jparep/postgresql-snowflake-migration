@@ -24,3 +24,7 @@ conn_sf = snowflake.connector.connect(
     database=os.getenv("SNOWFLAKE_DATABASE"),
     schema=os.getenv("SNOWFLAKE_SCHEMA")
 )
+
+# Extract data from PostgreSQL
+query = "SELECT * FROM employee"
+df = pd.read_sql(query, conn_pg)
