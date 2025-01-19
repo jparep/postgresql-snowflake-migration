@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres123
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: test_db
+    ports:
+      - "5433:5432"
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile.migration
+    container_name: migration_container
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres123
+      DB_PASSWORD: admin
+      DB_NAME: test_db
+      SNOWFLAKE_ACCOUNT: your_snowflake_account
+      SNOWFLAKE_USER: your_snowflake_user
+      SNOWFLAKE_PASSWORD: your_snowflake_password
+      SNOWFLAKE_DATABASE: test_db_snowflake
+      SNOWFLAKE_SCHEMA: public

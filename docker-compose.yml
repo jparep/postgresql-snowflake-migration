@@ -15,7 +15,7 @@ services:
   app:
     build:
       context: .
-    container_name: app_container
+    container_name: postgres_container
     environment:
       - DB_NAME=test_db
       - DB_USER=postgres123
