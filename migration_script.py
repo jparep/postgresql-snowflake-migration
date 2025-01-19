@@ -28,3 +28,11 @@ conn_sf = snowflake.connector.connect(
 # Extract data from PostgreSQL
 query = "SELECT * FROM employee"
 df = pd.read_sql(query, conn_pg)
+
+# Load data into Snowflake
+cursor = conn_sf.cursor()
+for _, row in df.interrows():
+    cursor.execute(
+        "INSERT INTO employee  VALUES (%s, %s, %s, %s)",
+        tuple(row)
+    )
