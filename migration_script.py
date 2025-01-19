@@ -7,12 +7,12 @@ import pandas as pd
 # Load environment variables from .env file
 load_dotenv()
 
-# PostgreSQL connectionb using environment variables
+# PostgreSQL connection using environment variables
 conn_pg = psycopg2.connect(
-    host=os.getenv("POSTGRESS_HOST"),
-    port=os.getenv("PORTGRESS_PORT"),
+    host=os.getenv("POSTGRES_HOST"),
+    port=os.getenv("POSTGRES_PORT"),
     user=os.getenv("POSTGRES_USER"),
-    password=os.getenv("POSTGRESS_PASSWORD"),
+    password=os.getenv("POSTGRES_PASSWORD"),
     database=os.getenv("POSTGRES_DATABASE")
 )
 
@@ -25,18 +25,20 @@ conn_sf = snowflake.connector.connect(
     schema=os.getenv("SNOWFLAKE_SCHEMA")
 )
 
-# Extract data from PostgreSQL
-query = "SELECT * FROM employee"
-df = pd.read_sql(query, conn_pg)
+try:
+    # Extract data from PostgreSQL
+    query = "SELECT * FROM employee"
+    df = pd.read_sql(query, conn_pg)
 
-# Load data into Snowflake
-cursor = conn_sf.cursor()
-for _, row in df.interrows():
-    cursor.execute(
-        "INSERT INTO employee  VALUES (%s, %s, %s, %s)",
-        tuple(row)
-    )
-    
+    # Load data into Snowflake
+    cursor = conn_sf.cursor()
+    for _, row in df.iterrows():
+        cursor.execute(
+            "INSERT INTO employee VALUES (%s, %s, %s, %s)",
+            tuple(row)
+        )
+    print("Data migration completed successfully.")
+finally:
     # Close connections
     conn_pg.close()
     conn_sf.close()
