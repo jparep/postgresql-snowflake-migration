@@ -36,3 +36,7 @@ for _, row in df.interrows():
         "INSERT INTO employee  VALUES (%s, %s, %s, %s)",
         tuple(row)
     )
+    
+    # Close connections
+    conn_pg.close()
+    conn_sf.close()
