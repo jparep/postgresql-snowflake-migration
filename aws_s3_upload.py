@@ -1,31 +1,27 @@
 import os
 from dotenv import load_dotenv
-import subprocess
+import boto3
 
 # Load environment variables
 load_dotenv()
 
-def dump_postgres():
-    """Dump PostgreSQL database to a file."""
-    dump_file = "data/postgres_backup.sql"
+def upload_to_s3(file_path):
+    """Upload a file to AWS S3."""
+    bucket_name = os.getenv("AWS_BUCKET_NAME")
+    bucket_path = os.getenv("AWS_BUCKET_PATH") + os.path.basename(file_path)
+    
     try:
-        # Command to dump PostgreSQL database
-        command = [
-            "pg_dump",
-            "--host", os.getenv("POSTGRES_HOST"),
-            "--port", os.getenv("POSTGRES_PORT"),
-            "--username", os.getenv("POSTGRES_USER"),
-            "--dbname", os.getenv("POSTGRES_DATABASE"),
-            "--file", dump_file
-        ]
-
-        # Run the command
-        subprocess.run(command, check=True, env={"PGPASSWORD": os.getenv("POSTGRES_PASSWORD")})
-        print(f"Database dump successful: {dump_file}")
-        return dump_file
-    except subprocess.CalledProcessError as e:
-        print(f"Error during database dump: {e}")
-        return None
+        s3 = boto3.client(
+            "s3",
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            region_name=os.getenv("AWS_REGION"),
+        )
+        s3.upload_file(file_path, bucket_name, bucket_path)
+        print(f"File uploaded successfully to s3://{bucket_name}/{bucket_path}")
+    except Exception as e:
+        print(f"Error uploading to S3: {e}")
 
 if __name__ == "__main__":
-    dump_postgres()
+    file_to_upload = "data/postgres_backup.sql"
+    upload_to_s3(file_to_upload)
