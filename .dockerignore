@@ -8,6 +8,8 @@ npm-debug.log*
 
 # Ignore environment variables
 .env
+.env.migration
+.env.*
 
 # Ignore build output
 dist

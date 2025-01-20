@@ -2,7 +2,7 @@
 Inserts the first 20 rows into the database.
 """
 
-from .connect_db_and_execute_query import execute_query
+from psql_dev.connect_db_and_execute_query import execute_query
 
 # SQL query for inserting data
 INSERT_DATA_QUERY = """

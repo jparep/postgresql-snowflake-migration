@@ -1,8 +1,7 @@
 """
 Create tables in the PostgreSQL database.
 """
-from psql.connect_db_and_execute_query import execute_query
-
+from psql_dev.connect_db_and_execute_query import execute_query
 
 # SQL query to create the 'employee' table
 CREATE_TABLE_QUERY = """
@@ -28,5 +27,4 @@ def create_table():
         raise  # Re-raise the exception for better debugging
 
 if __name__ == "__main__":
-    # Call crate table method
     create_table()

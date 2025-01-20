@@ -1,5 +1,5 @@
-from create_tables import create_table
-from insert_data import insert_initial_data
+from psql_dev.create_tables import create_table
+from psql_dev.insert_data import insert_initial_data
 
 def main():
     """
