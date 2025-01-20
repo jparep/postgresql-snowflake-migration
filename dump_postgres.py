@@ -1,13 +1,21 @@
 import os
-from dotenv import load_dotenv
 import subprocess
+from dotenv import load_dotenv
+from datetime import datetime
 
 # Load environment variables
 load_dotenv()
 
 def dump_postgres():
     """Dump PostgreSQL database to a file."""
-    dump_file = "data/postgres_backup.sql"
+    # Ensure the `data` directory exists
+    dump_dir = "data"
+    os.makedirs(dump_dir, exist_ok=True)
+
+    # Create a timestamped file name for the dump
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    dump_file = os.path.join(dump_dir, f"postgres_backup_{timestamp}.sql")
+
     try:
         # Command to dump PostgreSQL database
         command = [
@@ -19,8 +27,12 @@ def dump_postgres():
             "--file", dump_file
         ]
 
-        # Run the command
-        subprocess.run(command, check=True, env={"PGPASSWORD": os.getenv("POSTGRES_PASSWORD")})
+        # Run the command with the password in the environment
+        subprocess.run(
+            command,
+            check=True,
+            env={**os.environ, "PGPASSWORD": os.getenv("POSTGRES_PASSWORD")},
+        )
         print(f"Database dump successful: {dump_file}")
         return dump_file
     except subprocess.CalledProcessError as e:
