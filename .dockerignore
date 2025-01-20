@@ -10,6 +10,7 @@ npm-debug.log*
 .env
 .env.migration
 .env.*
+*.env
 
 # Ignore build output
 dist

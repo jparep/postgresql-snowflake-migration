@@ -11,6 +11,7 @@
 .env
 .env.migration
 .env.*
+*.env
 .env.local
 .env.*.local
 
