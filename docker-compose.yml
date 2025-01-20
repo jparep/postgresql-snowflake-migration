@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   postgres:
     image: postgres:16
@@ -8,9 +7,14 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DATABASE}
     ports:
-      - "5433:5432" 
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DATABASE}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build:
@@ -21,10 +25,11 @@ services:
       DB_NAME: ${POSTGRES_DATABASE}
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_HOST: postgres 
-      DB_PORT: 5432   
+      DB_HOST: postgres
+      DB_PORT: 5432
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     command: python psql_dev/main.py
 
 volumes:
