@@ -9,8 +9,8 @@ load_dotenv()
 
 # PostgreSQL connection using environment variables
 conn_pg = psycopg2.connect(
-    host=os.getenv("POSTGRES_HOST"),
-    port=os.getenv("POSTGRES_PORT"),
+    host=os.getenv("POSTGRES_HOST", "localhost"),
+    port=os.getenv("POSTGRES_PORT", "5432"),
     user=os.getenv("POSTGRES_USER"),
     password=os.getenv("POSTGRES_PASSWORD"),
     database=os.getenv("POSTGRES_DATABASE")

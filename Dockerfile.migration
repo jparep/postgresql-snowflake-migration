@@ -1,13 +1,17 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 
-# Install dependencies
-RUN pip install psycopg2-binary snowflake-connector-python pandas
-
-# Copy migration script
-COPY migration_script.py /app/migration_script.py
-
-# Set working directory
 WORKDIR /app
 
-# Entry point
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc libpq-dev && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the migration script and other required files
+COPY . .
+
+# Set the default command to run the migration script
 CMD ["python", "migration_script.py"]

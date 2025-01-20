@@ -4,11 +4,11 @@ services:
     image: postgres:16
     container_name: postgres_container
     environment:
-      POSTGRES_USER: postgres123
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: test_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5433:5432"
+      - "${POSTGRES_PORT}:5432"
 
   migration:
     build:
@@ -18,13 +18,8 @@ services:
     depends_on:
       - postgres
     environment:
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_USER: postgres123
-      DB_PASSWORD: admin
-      DB_NAME: test_db
-      SNOWFLAKE_ACCOUNT: your_snowflake_account
-      SNOWFLAKE_USER: your_snowflake_user
-      SNOWFLAKE_PASSWORD: your_snowflake_password
-      SNOWFLAKE_DATABASE: test_db_snowflake
-      SNOWFLAKE_SCHEMA: public
+      SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
+      SNOWFLAKE_USER: ${SNOWFLAKE_USER}
+      SNOWFLAKE_PASSWORD: ${SNOWFLAKE_PASSWORD}
+      SNOWFLAKE_DATABASE: ${SNOWFLAKE_DATABASE}
+      SNOWFLAKE_SCHEMA: ${SNOWFLAKE_SCHEMA}
