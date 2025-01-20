@@ -1,28 +1,28 @@
 version: "3.9"
 services:
   postgres:
-    image: postgres:17
+    image: postgres:16
     container_name: postgres_container
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DATABASE}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "5433:5432" 
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   app:
     build:
-      context: . 
+      context: .
       dockerfile: Dockerfile
     container_name: app_container
     environment:
       DB_NAME: ${POSTGRES_DATABASE}
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_HOST: ${POSTGRES_HOST}
-      DB_PORT: ${POSTGRES_PORT}
+      DB_HOST: postgres 
+      DB_PORT: 5432   
     depends_on:
       - postgres
     command: python psql_dev/main.py

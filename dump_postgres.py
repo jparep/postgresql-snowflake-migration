@@ -8,7 +8,7 @@ load_dotenv()
 
 def dump_postgres():
     """Dump PostgreSQL database to a file."""
-    # Ensure the `data` directory exists
+    # Ensure the data directory exists
     dump_dir = "data"
     os.makedirs(dump_dir, exist_ok=True)
 

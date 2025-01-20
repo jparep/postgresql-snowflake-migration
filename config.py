@@ -6,11 +6,11 @@ load_dotenv()
 
 # Database configuration dictionary
 DB_CONFIG = {
-    'host': os.getenv('POSTGRES_HOST', '172.26.0.2'),       # Default fallback: 'localhost'
-    'port': int(os.getenv('POSTGRES_PORT', 5432)),         # Default fallback: 5432
-    'user': os.getenv('POSTGRES_USER', 'postgres'),        # Default fallback: 'postgres'
-    'password': os.getenv('POSTGRES_PASSWORD', 'admin'),   # Default fallback: 'admin'
-    'dbname': os.getenv('POSTGRES_DATABASE', 'default_db') # Default fallback: 'default_db'
+    'host': os.getenv('POSTGRES_HOST', 'postgres'),
+    'port': int(os.getenv('POSTGRES_PORT', 5432)),  # Use 5432 for internal Docker communication
+    'user': os.getenv('POSTGRES_USER', 'postgres123'),
+    'password': os.getenv('POSTGRES_PASSWORD', 'admin'),
+    'dbname': os.getenv('POSTGRES_DATABASE', 'test_db')
 }
 
 # Additional configurations
